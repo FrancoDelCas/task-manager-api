@@ -1,4 +1,3 @@
-import { SupabaseClient } from "@supabase/supabase-js";
 import { supabaseSrv } from "../../db/supabase";
 import { Task } from "./types";
 

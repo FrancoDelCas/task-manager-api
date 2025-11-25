@@ -3,7 +3,7 @@ export interface Task {
     board_id: string;
     title: string;
     description: string;
-    status: string; // por hacer | en progreso | completado
+    status: string; // todo | in progress | done
     created_at: string;
     created_by: string;
     edited_at?: string | null;
