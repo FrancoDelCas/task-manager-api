@@ -1,11 +1,5 @@
 import { supabaseSrv } from "../../db/supabase";
-import { Board } from "./types";
-
-export interface CreateBoardInput {
-  name: string;
-  description?: string;
-  created_by: string;
-}
+import type { Board, CreateBoardInput } from "./types";
 
 export const getBoardsByUser = async (userId: string): Promise<Board[]> => {
   const { data: memberBoards, error } = await supabaseSrv

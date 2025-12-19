@@ -1,16 +1,5 @@
 import { supabaseSrv } from "../../db/supabase";
-
-export type BoardMemberWithProfile = {
-  id: string;
-  role: "admin" | "member";
-  board_id: string;
-  profile: {
-    id: string;
-    email: string;
-    first_name: string | null;
-    last_name: string | null;
-  } | null;
-};
+import type { BoardMemberWithProfile, BoardMemberRole } from "./types";
 
 export const getBoardMembers = async (boardId: string): Promise<BoardMemberWithProfile[]> => {
   const { data, error } = await supabaseSrv
@@ -44,7 +33,7 @@ export const getBoardMembers = async (boardId: string): Promise<BoardMemberWithP
   );
 };
 
-export const getUserRoleInBoard = async (boardId: string, userId: string) : Promise<BoardMemberWithProfile["role"]> => {
+export const getUserRoleInBoard = async (boardId: string, userId: string): Promise<BoardMemberRole> => {
   const { data, error } = await supabaseSrv
     .from("board_members")
     .select("role")
@@ -55,7 +44,7 @@ export const getUserRoleInBoard = async (boardId: string, userId: string) : Prom
     console.log("getUserRoleInBoard data: ", data)
     
   if (error) throw new Error(error.message);
-  return data.role as BoardMemberWithProfile["role"];
+  return data.role as BoardMemberRole;
 };
 
 export const isBoardMember = async (boardId: string, userId: string): Promise<boolean> => {
@@ -71,7 +60,7 @@ export const isBoardMember = async (boardId: string, userId: string): Promise<bo
   return !!data;
 };
 
-export const addBoardMember = async (boardId: string, new_member: string, role: BoardMemberWithProfile["role"] = "member"): Promise<void> => {
+export const addBoardMember = async (boardId: string, new_member: string, role: BoardMemberRole = "member"): Promise<void> => {
   const { error } = await supabaseSrv
     .from("board_members")
     .insert({ board_id: boardId, user_id: new_member, role });

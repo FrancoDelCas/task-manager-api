@@ -7,3 +7,9 @@ export interface Board {
 }
 
 export type BoardInsert = Pick<Board, "name" | "description">;
+
+export interface CreateBoardInput {
+  name: string;
+  description?: string;
+  created_by: string;
+}
